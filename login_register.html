@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyMate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="pictures/finance.png" type="image/png">
+</head>
+
+<body class="hide-scrollbar">
+    <div class="header-controls">
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-toggle">🌙</button>
+    </div>
+    <div class="container_1">
+        <object data="pictures/signup_page/login_register.png" type="image/png" style="width: 250px;"></object>
+
+        <div class="toggle-container" id="toggle-container">
+            <div class="slider"></div>
+            <button id="login-toggle" class="toggle-btn active" onclick="showLogin()">Login</button>
+            <button id="signup-toggle" class="toggle-btn" onclick="showSignup()">Sign Up</button>
+        </div>
+
+        <div class="forms-wrapper">
+            <div id="login-form" class="form-section">
+                <h1>Welcome back 👋</h1>
+                <p>Enter your details to access your account</p>
+                <form id="loginFormElement">
+                    <input type="text" placeholder="Username or Email" class="input-field" id="login-username">
+                    <div class="password-wrapper">
+                        <input type="password" placeholder="Password" class="input-field" id="login-password">
+                        <span class="toggle-password" onclick="togglePassword('login-password', this)">👁️</span>
+                    </div>
+                    <button type="submit" class="action-btn">Login</button>
+                </form>
+
+                <div class="divider">Or login with</div>
+
+                <div class="social-login">
+                    <button class="social-btn facebook">Facebook</button>
+                    <button class="social-btn google" onclick="handleGoogleLogin()">Google</button>
+                    <button class="social-btn apple">Apple</button>
+                </div>
+
+                <p style="margin-top: 20px;">Don't have an account? <a href="#" onclick="showSignup()">Sign up here</a>
+                </p>
+            </div>
+
+            <div id="signup-form" class="form-section hidden" style="display: none;">
+                <h1>Create Account 🚀</h1>
+                <p>Join us and manage your finances</p>
+                <form id="signupFormElement">
+                    <input type="text" placeholder="Username" class="input-field" id="signup-username">
+                    <input type="email" placeholder="Email" class="input-field" id="signup-email">
+                    <div class="password-wrapper">
+                        <input type="password" placeholder="Password" class="input-field" id="signup-password">
+                        <span class="toggle-password" onclick="togglePassword('signup-password', this)">👁️</span>
+                    </div>
+                    <div class="password-wrapper">
+                        <input type="password" placeholder="Confirm Password" class="input-field"
+                            id="signup-confirm-password">
+                        <span class="toggle-password"
+                            onclick="togglePassword('signup-confirm-password', this)">👁️</span>
+                    </div>
+                    <button type="submit" class="action-btn">Sign Up</button>
+                </form>
+                <p style="margin-top: 20px;">Already have an account? <a href="#" onclick="showLogin()">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.querySelector('.container_2');
+        const loginForm = document.getElementById('login-form');
+        const signupForm = document.getElementById('signup-form');
+        const toggleContainer = document.getElementById('toggle-container');
+        const loginBtn = document.getElementById('login-toggle');
+        const signupBtn = document.getElementById('signup-toggle');
+        const topImage = document.querySelector('object');
+
+
+
+        // Initialize Theme
+
+
+        function togglePassword(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.textContent = "🙈"; // Change icon to 'hide'
+            } else {
+                input.type = "password";
+                icon.textContent = "👁️"; // Change icon to 'show'
+            }
+        }
+
+        function getHeaderHeight() {
+            const wrapper = document.querySelector('.forms-wrapper');
+            return wrapper.offsetTop;
+        }
+
+        function updateHeight(activeForm) {
+            // Force reflow/calculation
+            const formHeight = activeForm.scrollHeight;
+            const topContentHeight = 350; // Approximated for Image + Toggle + Padding
+            const total = formHeight + topContentHeight;
+            container.style.height = total + 'px';
+        }
+
+        function showLogin() {
+            if (loginBtn.classList.contains('active')) return;
+
+            toggleContainer.classList.remove('signup-mode');
+            loginBtn.classList.add('active');
+            signupBtn.classList.remove('active');
+
+            signupForm.style.opacity = '0';
+            signupForm.style.transform = 'translateX(20px)';
+
+            setTimeout(() => {
+                signupForm.style.display = 'none';
+                signupForm.classList.add('hidden');
+
+                loginForm.style.display = 'block';
+                void loginForm.offsetWidth;
+                loginForm.classList.remove('hidden');
+                loginForm.style.opacity = '1';
+                loginForm.style.transform = 'translateX(0)';
+
+                const newHeight = loginForm.scrollHeight + 380;
+                container.style.height = newHeight + 'px';
+
+            }, 300);
+        }
+
+        function showSignup() {
+            if (signupBtn.classList.contains('active')) return;
+
+            toggleContainer.classList.add('signup-mode');
+            signupBtn.classList.add('active');
+            loginBtn.classList.remove('active');
+
+            loginForm.style.opacity = '0';
+            loginForm.style.transform = 'translateX(-20px)';
+
+            setTimeout(() => {
+                loginForm.style.display = 'none';
+                loginForm.classList.add('hidden');
+
+                signupForm.style.display = 'block';
+                void signupForm.offsetWidth;
+                signupForm.classList.remove('hidden');
+                signupForm.style.opacity = '1';
+                signupForm.style.transform = 'translateX(0)';
+
+                const newHeight = signupForm.scrollHeight + 380;
+                container.style.height = newHeight + 'px';
+
+            }, 300);
+        }
+
+        window.onload = () => {
+            // Initial height set
+            const height = loginForm.scrollHeight + 380;
+            container.style.height = height + 'px';
+        };
+
+        // --- Authentication Logic ---
+
+        // Handle Registration
+        document.getElementById('signupFormElement').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+            if (!username || !email || !password || !confirmPassword) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match!");
+                return;
+            }
+
+            // Check if user exists
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.some(u => u.email === email)) {
+                alert("User with this email already exists!");
+                return;
+            }
+
+            // Save user
+            const newUser = { username, email, password };
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert("Registration Successful! Please login.");
+
+            console.log('Registered:', newUser);
+
+            // Switch to login
+            showLogin();
+            this.reset();
+        });
+
+        // Handle Login
+        document.getElementById('loginFormElement').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const usernameInput = document.getElementById('login-username').value;
+            const passwordInput = document.getElementById('login-password').value;
+
+            if (!usernameInput || !passwordInput) {
+                alert("Please enter username/email and password.");
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            // Check against username OR email
+            const user = users.find(u => (u.username === usernameInput || u.email === usernameInput) && u.password === passwordInput);
+
+            if (user) {
+                alert("Login Successful!");
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                window.location.href = 'dashboard.html';
+            } else {
+                alert("Login Failed: Invalid username/email or password.");
+            }
+        });
+
+        // Handle Google Login
+        function handleGoogleLogin() {
+            const googleEmail = prompt("Enter your Google email address:");
+
+            if (!googleEmail) {
+                return; // User cancelled
+            }
+
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(googleEmail)) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            let user = users.find(u => u.email === googleEmail);
+
+            if (!user) {
+                // Auto-create account for Google login
+                const username = googleEmail.split('@')[0]; // Use email prefix as username
+                user = {
+                    username: username,
+                    email: googleEmail,
+                    password: 'google-auth-' + Math.random().toString(36).substring(7) // Random password
+                };
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+                alert("Welcome! Your account has been created via Google Login.");
+            } else {
+                alert("Login Successful via Google!");
+            }
+
+            // Log in the user
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

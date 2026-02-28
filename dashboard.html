@@ -1,0 +1,1760 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoneyMate</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="pictures/finance.png" type="image/png">
+</head>
+
+<body class="hide-scrollbar">
+    <div class="header-controls">
+        <div class="notification-wrapper">
+            <button class="notification-btn" onclick="toggleNotifications()">🔔</button>
+            <div class="notification-dropdown" id="notification-dropdown">
+                <div class="notification-header">
+                    <h4>Notifications</h4>
+                    <span class="notification-count">3</span>
+                </div>
+                <div class="notification-list">
+                    <div class="notification-item warning">
+                        <div class="notif-icon">⚡</div>
+                        <div class="notif-content">
+                            <p class="notif-title">TNB Bill Due</p>
+                            <p class="notif-desc">RM 120.00 due in 2 days</p>
+                            <button class="notif-action-btn">Pay Now</button>
+                        </div>
+                    </div>
+                    <div class="notification-item success">
+                        <div class="notif-icon">📱</div>
+                        <div class="notif-content">
+                            <p class="notif-title">Maxis Bill</p>
+                            <p class="notif-desc">RM 89.90</p>
+                            <span class="notif-status">Paid ✅</span>
+                        </div>
+                    </div>
+                    <div class="notification-item alert">
+                        <div class="notif-icon">⚠️</div>
+                        <div class="notif-content">
+                            <p class="notif-title">Budget Alert</p>
+                            <p class="notif-desc">Overspent in Shopping!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="theme-toggle-btn" onclick="toggleTheme()" id="theme-toggle">🌙</button>
+    </div>
+    <div class="dashboard-wrapper">
+        <nav class="sidebar">
+            <h2 style="margin-bottom: 30px; color: #007bff;">MoneyMate</h2>
+            <a href="#" class="sidebar-link active" onclick="showSection('home', this); return false;">🏠 Home</a>
+            <a href="#" class="sidebar-link" onclick="showSection('expenses', this); return false;">💸 Expenses</a>
+            <a href="#" class="sidebar-link" onclick="showSection('payments', this); return false;">💳 Payments</a>
+            <a href="#" class="sidebar-link" onclick="showSection('profile', this); return false;">👤 Profile</a>
+        </nav>
+
+        <main class="main-content">
+            <!-- HOME SECTION -->
+            <div id="home-section" class="content-section active">
+                <div class="container_2">
+                    <h1>Welcome to MoneyMate! 🎉</h1>
+                    <p>You have successfully logged in.</p>
+
+                    <div class="stats-container">
+                        <div class="stat-box">
+                            <h3>Total Balance 💲</h3>
+                            <p class="stat-value">RM 12,500.00</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Total Saved ⬆️</h3>
+                            <p class="stat-value text-green">RM 5,000.00</p>
+                        </div>
+                        <div class="stat-box">
+                            <h3>Total Spent ⬇️</h3>
+                            <p class="stat-value text-red">RM 3,200.00</p>
+                        </div>
+                    </div>
+
+                    <div class="quick-options-section">
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Quick Options</h3>
+                        <div class="quick-options">
+                            <button class="quick-btn" onclick="openExpenseModal()">💸 Add Expenses</button>
+                            <button class="quick-btn" onclick="showSection('payments')">💳 Make Payment</button>
+                            <button class="quick-btn" onclick="showSection('reports')">📄 View Reports</button>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity-section">
+                        <h3
+                            style="margin-top: 30px; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; justify-content: center;">
+                            <button class="icon-btn">⬅️</button> Recent Activity
+                        </h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <span class="activity-date">12 Oct</span>
+                                <span class="activity-name">Netflix Subscription</span>
+                                <span class="activity-amount text-red">- RM 45.00</span>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-date">10 Oct</span>
+                                <span class="activity-name">Groceries (Lotus's)</span>
+                                <span class="activity-amount text-red">- RM 150.50</span>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-date">08 Oct</span>
+                                <span class="activity-name">Shell Petrol</span>
+                                <span class="activity-amount text-red">- RM 60.00</span>
+                            </div>
+                            <div class="activity-item">
+                                <span class="activity-date">05 Oct</span>
+                                <span class="activity-name">Spotify Premium</span>
+                                <span class="activity-amount text-red">- RM 15.90</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="goals-section">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 15px;">
+                            <h3 style="margin: 0;">Goals 🎯</h3>
+                            <button class="add-goal-btn">+ Add Goal</button>
+                        </div>
+                        <div class="goals-list">
+                            <div class="goal-item">
+                                <div class="goal-header">
+                                    <span class="goal-name">🗾 Japan Trip</span>
+                                    <span class="goal-amount">RM 5,000 / RM 15,000</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 33%;"></div>
+                                </div>
+                                <span class="goal-percentage">33%</span>
+                            </div>
+                            <div class="goal-item">
+                                <div class="goal-header">
+                                    <span class="goal-name">💰 Emergency Fund</span>
+                                    <span class="goal-amount">RM 8,000 / RM 10,000</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%;"></div>
+                                </div>
+                                <span class="goal-percentage">80%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-expenses-section">
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Recent Expenses 📊</h3>
+                        <div class="expenses-list">
+                            <div class="expense-item">
+                                <div class="expense-icon">🍔</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Tealive</span>
+                                    <span class="expense-type">Food & Dining</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 25.50</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">⚡</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">TNB Bill</span>
+                                    <span class="expense-type">Utilities</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 180.00</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">🎬</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Movies</span>
+                                    <span class="expense-type">Entertainment</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 40.00</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">🚕</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Grab Ride</span>
+                                    <span class="expense-type">Transportation</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 18.50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-expenses-section">
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Categories 🗃️</h3>
+                        <div class="expenses-list">
+                            <div class="expense-item">
+                                <div class="expense-icon">🍔</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Food & Dining</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 850.50</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">⚡</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Utilities</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 350.00</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">🎬</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Entertainment</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 750.00</span>
+                            </div>
+                            <div class="expense-item">
+                                <div class="expense-icon">🚕</div>
+                                <div class="expense-details">
+                                    <span class="expense-name">Transportation</span>
+                                </div>
+                                <span class="expense-amount text-red">- RM 420.50</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END HOME SECTION -->
+
+            <!-- EXPENSES SECTION -->
+            <div id="expenses-section" class="content-section">
+                <div class="container_2">
+                    <h1>Expenses 💸</h1>
+
+                    <!-- Monthly Spending Report Card -->
+                    <div class="monthly-report-card">
+                        <div class="report-header">
+                            <h3>Monthly Spending Report</h3>
+                            <span class="report-date" id="report-date"></span>
+                        </div>
+                        <div class="report-stats">
+                            <div class="report-item">
+                                <span class="report-label">Total Spending</span>
+                                <span class="report-value">RM 1,245.80</span>
+                            </div>
+                            <div class="report-item">
+                                <span class="report-label">vs Last Month</span>
+                                <span class="report-value text-red">+12.5% ↑</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Goals Section (Shared) -->
+                    <div class="goals-section">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-top: 30px; margin-bottom: 15px;">
+                            <h3 style="margin: 0;">Goals 🎯</h3>
+                            <button class="add-goal-btn">+ Add Goal</button>
+                        </div>
+                        <div class="goals-list" id="goals-list-expenses">
+                            <!-- Goals will be dynamically loaded here -->
+                        </div>
+                    </div>
+
+                    <!-- Recent Expenses (Shared) -->
+                    <div class="recent-expenses-section">
+                        <h3 style="margin-top: 30px; margin-bottom: 15px;">Recent Expenses 📊</h3>
+                        <div class="expenses-list" id="expenses-list-expenses">
+                            <!-- Expenses will be dynamically loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXPENSES SECTION -->
+
+            <!-- CATEGORIES SECTION -->
+            <div id="categories-section" class="content-section">
+                <div class="container_2">
+                    <h1>Categories 📂</h1>
+                    <div class="stats-container">
+                        <div class="stat-box category-card">
+                            <div class="category-icon">🍔</div>
+                            <h3>Food & Dining</h3>
+                            <p class="stat-value text-red">RM 450.00</p>
+                        </div>
+                        <div class="stat-box category-card">
+                            <div class="category-icon">🚕</div>
+                            <h3>Transportation</h3>
+                            <p class="stat-value text-red">RM 200.00</p>
+                        </div>
+                        <div class="stat-box category-card">
+                            <div class="category-icon">🛍️</div>
+                            <h3>Shopping</h3>
+                            <p class="stat-value text-red">RM 300.00</p>
+                        </div>
+                        <div class="stat-box category-card">
+                            <div class="category-icon">🎬</div>
+                            <h3>Entertainment</h3>
+                            <p class="stat-value text-red">RM 150.00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END CATEGORIES SECTION -->
+
+            <!-- PAYMENTS SECTION -->
+            <div id="payments-section" class="content-section">
+                <div class="container_2">
+                    <h1>Payments 💳</h1>
+
+                    <!-- Quick Pay Section -->
+                    <div class="payment-subsection">
+                        <h3>Quick Pay ⚡</h3>
+                        <div class="quick-pay-container">
+                            <div class="quick-pay-card">
+                                <div class="quick-pay-header">
+                                    <span class="biller-name">TNB Electricity</span>
+                                    <span class="biller-icon">⚡</span>
+                                </div>
+                                <div class="quick-pay-details">
+                                    <span class="bill-amount">RM 120.00</span>
+                                    <span class="bill-due text-red">Due in 2 days</span>
+                                </div>
+                                <button class="pay-now-btn" onclick="openPaymentModal({
+                                    name: 'TNB Electricity',
+                                    icon: '⚡',
+                                    amount: '120.00',
+                                    due: '20 Oct 2026',
+                                    acc: '2200119988',
+                                    holder: 'Alex Tan'
+                                })">Pay Now</button>
+                            </div>
+                            <div class="quick-pay-card">
+                                <div class="quick-pay-header">
+                                    <span class="biller-name">Maxis Bill</span>
+                                    <span class="biller-icon">📱</span>
+                                </div>
+                                <div class="quick-pay-details">
+                                    <span class="bill-amount">RM 89.90</span>
+                                    <span class="bill-due">Due: 25 Oct</span>
+                                </div>
+                                <button class="pay-now-btn" onclick="openPaymentModal({
+                                    name: 'Maxis Bill',
+                                    icon: '📱',
+                                    amount: '89.90',
+                                    due: '25 Oct 2026',
+                                    acc: '012-3456789',
+                                    holder: 'Alex Tan'
+                                })">Pay Now</button>
+                            </div>
+                            <!-- Additional Quick Pay Options -->
+                            <div class="quick-pay-card">
+                                <div class="quick-pay-header">
+                                    <span class="biller-name">Unifi Internet</span>
+                                    <span class="biller-icon">🌐</span>
+                                </div>
+                                <div class="quick-pay-details">
+                                    <span class="bill-amount">RM 149.00</span>
+                                    <span class="bill-due">Due: 28 Oct</span>
+                                </div>
+                                <button class="pay-now-btn" onclick="openPaymentModal({
+                                    name: 'Unifi Internet',
+                                    icon: '🌐',
+                                    amount: '149.00',
+                                    due: '28 Oct 2026',
+                                    acc: '8899001122',
+                                    holder: 'Alex Tan'
+                                })">Pay Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-row">
+                        <!-- Upcoming Bills -->
+                        <div class="payment-subsection half-width">
+                            <h3>Upcoming Bills 📅</h3>
+                            <div class="bill-list">
+                                <div class="bill-item">
+                                    <div class="bill-info">
+                                        <span class="bill-date">20 Oct</span>
+                                        <span class="bill-desc">Water Bill</span>
+                                    </div>
+                                    <span class="bill-cost">RM 35.00</span>
+                                </div>
+                                <div class="bill-item">
+                                    <div class="bill-info">
+                                        <span class="bill-date">28 Oct</span>
+                                        <span class="bill-desc">Netflix</span>
+                                    </div>
+                                    <span class="bill-cost">RM 45.00</span>
+                                </div>
+                                <!-- Hidden Bills -->
+                                <div class="bill-item hidden-bills" style="display: none;">
+                                    <div class="bill-info">
+                                        <span class="bill-date">01 Nov</span>
+                                        <span class="bill-desc">Spotify</span>
+                                    </div>
+                                    <span class="bill-cost">RM 15.90</span>
+                                </div>
+                                <div class="bill-item hidden-bills" style="display: none;">
+                                    <div class="bill-info">
+                                        <span class="bill-date">05 Nov</span>
+                                        <span class="bill-desc">Indah Water</span>
+                                    </div>
+                                    <span class="bill-cost">RM 28.00</span>
+                                </div>
+                                <button class="view-more-btn" id="toggle-bills-btn" onclick="toggleUpcomingBills()">View
+                                    All</button>
+                            </div>
+                        </div>
+
+                        <!-- Recent Payments -->
+                        <div class="payment-subsection half-width">
+                            <h3>Recent Payments �</h3>
+                            <div class="history-list" id="payment-history-list">
+                                <div class="history-item">
+                                    <span class="history-date">Today</span>
+                                    <span class="history-desc">Grab Topup</span>
+                                    <span class="history-amount">- RM 50.00</span>
+                                </div>
+                                <div class="history-item">
+                                    <span class="history-date">Yesterday</span>
+                                    <span class="history-desc">Rent Transfer</span>
+                                    <span class="history-amount">- RM 850.00</span>
+                                </div>
+                                <div class="history-item">
+                                    <span class="history-date">10 Oct</span>
+                                    <span class="history-desc">Touch 'n Go</span>
+                                    <span class="history-amount">- RM 100.00</span>
+                                </div>
+                                <!-- Hidden Items -->
+                                <div class="history-item hidden-history" style="display: none;">
+                                    <span class="history-date">05 Oct</span>
+                                    <span class="history-desc">Indah Water</span>
+                                    <span class="history-amount">- RM 28.00</span>
+                                </div>
+                                <div class="history-item hidden-history" style="display: none;">
+                                    <span class="history-date">01 Oct</span>
+                                    <span class="history-desc">Spotify</span>
+                                    <span class="history-amount">- RM 15.90</span>
+                                </div>
+                            </div>
+                            <button class="view-more-btn" id="toggle-history-btn" onclick="togglePaymentHistory()">View
+                                History</button>
+                        </div>
+                    </div>
+
+                    <!-- Payment Options Grid -->
+                    <div class="payment-subsection">
+                        <h3>Payment Options 🏦</h3>
+                        <div class="payment-grid">
+                            <div class="payment-card" onclick="alert('Paying TNB Electricity...')">
+                                <div class="payment-icon">⚡</div>
+                                <h3>TNB Electricity</h3>
+                            </div>
+                            <div class="payment-card" onclick="alert('Paying Maxis Bill...')">
+                                <div class="payment-icon">📱</div>
+                                <h3>Maxis Bill</h3>
+                            </div>
+                            <div class="payment-card" onclick="alert('Paying Water Bill...')">
+                                <div class="payment-icon">💧</div>
+                                <h3>Water Bill</h3>
+                            </div>
+                            <div class="payment-card" onclick="alert('Paying Rent...')">
+                                <div class="payment-icon">🏠</div>
+                                <h3>Rent Payment</h3>
+                            </div>
+                            <div class="payment-card" onclick="alert('Initiating Transfer...')">
+                                <div class="payment-icon">💸</div>
+                                <h3>Make a Transfer</h3>
+                            </div>
+                            <div class="payment-card add-new" onclick="alert('Adding new bill...')">
+                                <div class="payment-icon">➕</div>
+                                <h3>Other Bill</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROFILE SECTION -->
+            <div id="profile-section" class="content-section">
+                <div class="container_2">
+                    <h1>Profile 👤</h1>
+
+                    <div class="profile-container">
+                        <!-- User Card -->
+                        <div class="user-profile-card">
+                            <div class="profile-image-container">
+                                <img src="https://ui-avatars.com/api/?name=Alex+Tan&background=458588&color=fff&size=128"
+                                    alt="Profile" id="profile-img-display">
+                                <label for="profile-upload" class="edit-profile-icon">📷</label>
+                                <input type="file" id="profile-upload" accept="image/*" style="display: none;"
+                                    onchange="previewProfileImage(event)">
+                            </div>
+                            <h2 class="profile-name">Alex Tan</h2>
+                            <p class="profile-email">alex.tan@example.com</p>
+                        </div>
+
+                        <!-- Settings Grid -->
+                        <div class="profile-settings-grid">
+
+                            <!-- Account Settings -->
+                            <div class="settings-group">
+                                <h3>Account Settings ⚙️</h3>
+                                <div class="settings-list">
+                                    <div class="setting-item" onclick="toggleSecuritySection()">
+                                        <span class="setting-icon">🔒</span>
+                                        <span class="setting-label">Accounts & Security</span>
+                                        <span class="setting-arrow" id="security-arrow">›</span>
+                                    </div>
+
+                                    <!-- Security Verification Section (Hidden by default) -->
+                                    <div id="security-verification-section" class="expandable-section">
+                                        <div class="verification-status" id="verification-status">
+                                            <span class="status-icon">❌</span>
+                                            <span class="status-text">Account Unverified</span>
+                                        </div>
+
+                                        <div id="verification-step-1" class="verification-step">
+                                            <p>Verify your account to enable higher transaction limits and enhanced
+                                                security.</p>
+                                            <button class="verify-btn" onclick="startVerification()">Verify Now</button>
+                                        </div>
+
+                                        <div id="verification-step-2" class="verification-step" style="display: none;">
+                                            <p>We will send a One-Time Password (OTP) to <strong
+                                                    class="profile-email">user@example.com</strong>.</p>
+                                            <div class="otp-actions">
+                                                <button class="cancel-btn-small"
+                                                    onclick="cancelVerification()">Cancel</button>
+                                                <button class="verify-btn" onclick="sendOTP()">Send OTP</button>
+                                            </div>
+                                        </div>
+
+                                        <div id="verification-step-3" class="verification-step" style="display: none;">
+                                            <p>Enter the 4-digit code sent to your email.</p>
+                                            <input type="text" id="otp-input" placeholder="0 0 0 0" maxlength="4"
+                                                class="otp-input">
+                                            <div class="otp-actions">
+                                                <button class="cancel-btn-small"
+                                                    onclick="cancelVerification()">Cancel</button>
+                                                <button class="verify-btn" onclick="verifyOTP()">Verify</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="setting-item" onclick="toggleBankSection()">
+                                        <span class="setting-icon">💳</span>
+                                        <span class="setting-label">Bank & Payment Methods</span>
+                                        <span class="setting-arrow" id="bank-arrow">›</span>
+                                    </div>
+
+                                    <!-- Bank & Payment Methods Section (Hidden by default) -->
+                                    <div id="bank-payment-section" class="expandable-section">
+                                        <h4 style="margin: 15px 0 10px 0; font-size: 14px; color: #666;">Connected
+                                            Accounts</h4>
+
+                                        <!-- Bank Account Card -->
+                                        <div class="connected-account-card">
+                                            <div class="account-header">
+                                                <span class="account-icon">🏦</span>
+                                                <div class="account-info">
+                                                    <span class="account-name">Maybank Savings</span>
+                                                    <span class="account-number">Current Account • 1234567890</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-details">
+                                                <div class="account-balance">
+                                                    <span class="balance-label">Current Balance</span>
+                                                    <span class="balance-amount">RM 12,500.00</span>
+                                                </div>
+                                                <span class="last-synced">Last synced: 2 mins ago</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Payment Card -->
+                                        <div class="connected-account-card">
+                                            <div class="account-header">
+                                                <span class="account-icon">💳</span>
+                                                <div class="account-info">
+                                                    <span class="account-name">MasterCard</span>
+                                                    <span class="account-number">•••• •••• •••• 4532</span>
+                                                </div>
+                                            </div>
+                                            <div class="account-details">
+                                                <div class="account-balance">
+                                                    <span class="balance-label">Available Credit</span>
+                                                    <span class="balance-amount">RM 8,750.00</span>
+                                                </div>
+                                                <span class="last-synced">Last synced: 5 mins ago</span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Add Account Button -->
+                                        <button class="add-account-btn" onclick="alert('Add new account/card')">
+                                            <span style="font-size: 20px;">+</span> Add Account
+                                        </button>
+                                    </div>
+                                    <div class="setting-item" onclick="toggleNotificationsSection()">
+                                        <span class="setting-icon">🔔</span>
+                                        <span class="setting-label">Notifications</span>
+                                        <span class="setting-arrow" id="notifications-arrow">›</span>
+                                    </div>
+
+                                    <!-- Notifications Section (Hidden by default) -->
+                                    <div id="notifications-section" class="expandable-section">
+                                        <h4 style="margin: 15px 0 10px 0; font-size: 14px; color: #666;">Notification
+                                            Preferences</h4>
+
+                                        <div class="notification-pref-item">
+                                            <div class="pref-info">
+                                                <span class="pref-label">Bill Reminders</span>
+                                                <span class="pref-desc">Get notified before bills are due</span>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="notification-pref-item">
+                                            <div class="pref-info">
+                                                <span class="pref-label">Budget Alerts</span>
+                                                <span class="pref-desc">Alert when approaching budget limits</span>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="notification-pref-item">
+                                            <div class="pref-info">
+                                                <span class="pref-label">Goal Progress</span>
+                                                <span class="pref-desc">Updates on savings goal milestones</span>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox" checked>
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+
+                                        <div class="notification-pref-item">
+                                            <div class="pref-info">
+                                                <span class="pref-label">Transaction Alerts</span>
+                                                <span class="pref-desc">Notify for all transactions</span>
+                                            </div>
+                                            <label class="toggle-switch">
+                                                <input type="checkbox">
+                                                <span class="toggle-slider"></span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Financial Tools -->
+                            <div class="settings-group">
+                                <h3>Financial Tools 📊</h3>
+                                <div class="settings-list">
+                                    <div class="setting-item"
+                                        onclick="showSection('reports', document.querySelector('a[href=\'#\'][onclick*=\'reports\']'))">
+                                        <span class="setting-icon">📈</span>
+                                        <span class="setting-label">Reports & Analytics</span>
+                                        <span class="setting-arrow">›</span>
+                                    </div>
+                                    <div class="setting-item" onclick="openGoalModal()">
+                                        <span class="setting-icon">🎯</span>
+                                        <span class="setting-label">Goals</span>
+                                        <span class="setting-arrow">›</span>
+                                    </div>
+                                    <div class="setting-item" onclick="openBudgetModal()">
+                                        <span class="setting-icon">�</span>
+                                        <span class="setting-label">Budget Management</span>
+                                        <span class="setting-arrow">›</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Support -->
+                            <div class="settings-group">
+                                <h3>Support ❓</h3>
+                                <div class="settings-list">
+                                    <div class="setting-item"
+                                        onclick="toggleSupportSection('help-section', 'help-arrow')">
+                                        <span class="setting-icon">ℹ️</span>
+                                        <span class="setting-label">Help & FAQ</span>
+                                        <span class="setting-arrow" id="help-arrow">›</span>
+                                    </div>
+                                    <div id="help-section" class="expandable-section">
+                                        <div class="support-content">
+                                            <p><strong>How do I add an expense?</strong><br>Go to the Home tab and click
+                                                "Add Expenses" in Quick Options.</p>
+                                            <p><strong>Can I export my reports?</strong><br>Yes, you can view and
+                                                download reports from the Reports & Analytics section.</p>
+                                            <p><strong>Is my data secure?</strong><br>We use local storage to keep your
+                                                data on your device, ensuring privacy and speed.</p>
+                                        </div>
+                                    </div>
+                                    <div class="setting-item"
+                                        onclick="toggleSupportSection('about-section', 'about-arrow')">
+                                        <span class="setting-icon">📱</span>
+                                        <span class="setting-label">About This App</span>
+                                        <span class="setting-arrow" id="about-arrow">›</span>
+                                    </div>
+                                    <div id="about-section" class="expandable-section">
+                                        <div class="support-content">
+                                            <p><strong>MoneyMate v1.0</strong></p>
+                                            <p>MoneyMate is your personal financial companion designed to help you track
+                                                expenses, manage budgets, and achieve your financial goals with ease and
+                                                style.</p>
+                                            <p>Our vision is to make personal finance accessible, intuitive, and even a
+                                                bit fun.</p>
+                                        </div>
+                                    </div>
+                                    <div class="setting-item"
+                                        onclick="toggleSupportSection('terms-section', 'terms-arrow')">
+                                        <span class="setting-icon">📄</span>
+                                        <span class="setting-label">Terms & Privacy</span>
+                                        <span class="setting-arrow" id="terms-arrow">›</span>
+                                    </div>
+                                    <div id="terms-section" class="expandable-section">
+                                        <div class="support-content">
+                                            <p>By using MoneyMate, you agree to keep your financial data on your local
+                                                device. We do not store your private data on our servers.</p>
+                                            <p>Privacy is our priority. Your financial information remains yours and
+                                                yours alone.</p>
+                                        </div>
+                                    </div>
+                                    <div class="setting-item"
+                                        onclick="toggleSupportSection('credits-section', 'credits-arrow')">
+                                        <span class="setting-icon">👏</span>
+                                        <span class="setting-label">Credits</span>
+                                        <span class="setting-arrow" id="credits-arrow">›</span>
+                                    </div>
+                                    <div id="credits-section" class="expandable-section">
+                                        <div class="support-content">
+                                            <p><strong>Developer:</strong> Daryl Harry Bennet</p>
+                                            <p><strong>Leader:</strong> Fivryl anak Wilson</p>
+                                            <p><strong>Researcher:</strong> Nisa</p>
+                                            <p><strong>Presenter:</strong> Izza</p>
+                                            <p style="margin-top: 10px; font-style: italic; opacity: 0.8;">Special
+                                                thanks to everyone who contributed to making MoneyMate a reality!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Logout Button -->
+                        <div class="profile-logout-container">
+                            <button class="logout-btn-large" onclick="logout()">🚪 Log Out</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- REPORTS SECTION -->
+            <div id="reports-section" class="content-section">
+                <div class="container_2">
+                    <h1>Financial Reports 📉</h1>
+
+                    <div class="report-container">
+                        <!-- Category Breakdown -->
+                        <div class="report-card">
+                            <h3>Category Breakdown 📊</h3>
+                            <div class="breakdown-list">
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span>Food & Dining</span>
+                                        <span class="text-red">RM 850.00 (45%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 45%; background-color: #fab1a0;"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span>Transportation</span>
+                                        <span class="text-red">RM 420.50 (22%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 22%; background-color: #74b9ff;"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span>Shopping</span>
+                                        <span class="text-red">RM 320.00 (17%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 17%; background-color: #a29bfe;"></div>
+                                    </div>
+                                </div>
+                                <div class="breakdown-item">
+                                    <div class="breakdown-header">
+                                        <span>Entertainment</span>
+                                        <span class="text-red">RM 295.00 (16%)</span>
+                                    </div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 16%; background-color: #ffeaa7;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Top Merchants -->
+                        <div class="report-card">
+                            <h3>Top Merchants 🏆</h3>
+                            <div class="merchant-list">
+                                <div class="merchant-item">
+                                    <span class="merchant-rank">1</span>
+                                    <div class="merchant-info">
+                                        <span class="merchant-name">Tesco / Lotus's</span>
+                                        <span class="merchant-category">Groceries</span>
+                                    </div>
+                                    <span class="merchant-amount text-red">- RM 450.00</span>
+                                </div>
+                                <div class="merchant-item">
+                                    <span class="merchant-rank">2</span>
+                                    <div class="merchant-info">
+                                        <span class="merchant-name">Petronas</span>
+                                        <span class="merchant-category">Fuel</span>
+                                    </div>
+                                    <span class="merchant-amount text-red">- RM 280.00</span>
+                                </div>
+                                <div class="merchant-item">
+                                    <span class="merchant-rank">3</span>
+                                    <div class="merchant-info">
+                                        <span class="merchant-name">Tealive</span>
+                                        <span class="merchant-category">Food & Dining</span>
+                                    </div>
+                                    <span class="merchant-amount text-red">- RM 120.50</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="report-actions">
+                        <button class="action-btn download-btn" onclick="window.print()">
+                            📥 Download PDF
+                        </button>
+                        <div class="share-buttons">
+                            <a href="https://wa.me/?text=Check%20out%20my%20spending%20report!" target="_blank"
+                                class="social-share-btn whatsapp">
+                                📱 Share on WhatsApp
+                            </a>
+                            <a href="https://t.me/share/url?url=https://moneymate.com&text=Check%20out%20my%20spending%20report!"
+                                target="_blank" class="social-share-btn telegram">
+                                ✈️ Share on Telegram
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ADD EXPENSE MODAL -->
+    <div id="expense-modal" class="modal" style="overflow: hidden;">
+        <div class="modal-content" style="overflow: hidden;">
+            <span class="close-modal" onclick="closeExpenseModal()" style="overflow: hidden;">&times;</span>
+            <h2>Add New Expense 💸</h2>
+            <form id="expense-form" onsubmit="saveExpense(event)">
+                <div class="form-group">
+                    <label>Amount (RM)</label>
+                    <input type="number" id="expense-amount" placeholder="0.00" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="expense-category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="Food & Dining">Food & Dining 🍔</option>
+                        <option value="Transportation">Transportation 🚕</option>
+                        <option value="Shopping">Shopping 🛍️</option>
+                        <option value="Entertainment">Entertainment 🎬</option>
+                        <option value="Utilities">Utilities ⚡</option>
+                        <option value="Other">Other 📝</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date" id="expense-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="expense-desc" placeholder="What was this for?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Attach Receipt (PDF only)</label>
+                    <input type="file" id="expense-receipt" accept=".pdf">
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" onclick="closeExpenseModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- PAYMENT FLOW MODAL -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content payment-modal-content">
+            <span class="close-modal" onclick="closePaymentModal()">&times;</span>
+
+            <!-- Step 1: Payment Details -->
+            <div id="payment-step-1" class="payment-step active">
+                <h2>Payment Details 💳</h2>
+                <div class="biller-info-box">
+                    <div class="biller-icon-large" id="pay-icon">⚡</div>
+                    <div class="biller-text">
+                        <h3 id="pay-biller-name">TNB Electricity</h3>
+                        <p class="account-number">Acc: <span id="pay-acc-num">1234567890</span></p>
+                        <p class="account-holder">Holder: <span id="pay-acc-holder">Alex Tan</span></p>
+                    </div>
+                </div>
+
+                <div class="payment-details-form">
+                    <div class="detail-row">
+                        <span>Due Date:</span>
+                        <span id="pay-due-date" class="font-bold">25 Oct 2026</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>Outstanding:</span>
+                        <span id="pay-outstanding" class="text-red font-bold">RM 120.00</span>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Payment Amount (RM)</label>
+                        <input type="number" id="payment-amount-input" step="0.01" value="120.00">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Payment Method</label>
+                        <div class="payment-methods">
+                            <label class="method-option selected" onclick="selectPaymentMethod(this)">
+                                <input type="radio" name="pay-method" value="wallet" checked>
+                                <span class="method-icon">👛</span>
+                                <div class="method-info">
+                                    <span class="method-name">E-Wallet</span>
+                                    <span class="method-balance">Bal: RM 12,500</span>
+                                </div>
+                                <span class="check-mark">✔</span>
+                            </label>
+                            <label class="method-option" onclick="selectPaymentMethod(this)">
+                                <input type="radio" name="pay-method" value="bank">
+                                <span class="method-icon">🏦</span>
+                                <div class="method-info">
+                                    <span class="method-name">Online Banking</span>
+                                    <span class="method-balance">FPX / Direct</span>
+                                </div>
+                                <span class="check-mark">✔</span>
+                            </label>
+                            <label class="method-option" onclick="selectPaymentMethod(this)">
+                                <input type="radio" name="pay-method" value="card">
+                                <span class="method-icon">💳</span>
+                                <div class="method-info">
+                                    <span class="method-name">Credit Card</span>
+                                    <span class="method-balance">Visa / Master</span>
+                                </div>
+                                <span class="check-mark">✔</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button class="cancel-btn" onclick="closePaymentModal()">Cancel</button>
+                    <button class="save-btn" onclick="proceedToConfirm()">Next</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Confirmation -->
+            <div id="payment-step-2" class="payment-step" style="display: none;">
+                <h2>Confirm Payment 🔒</h2>
+                <div class="confirmation-box">
+                    <div class="confirm-row">
+                        <span>To:</span>
+                        <span id="confirm-biller" class="font-bold">TNB Electricity</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span>Amount:</span>
+                        <span id="confirm-amount" class="text-xl font-bold">RM 120.00</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span>Method:</span>
+                        <span id="confirm-method">Wallet</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span>Date:</span>
+                        <span id="confirm-date">Today</span>
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" onclick="backToStep1()">Back</button>
+                    <button class="save-btn" onclick="submitPayment()">Confirm Pay</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Receipt -->
+            <div id="payment-step-3" class="payment-step" style="display: none; text-align: center;">
+                <div class="success-icon">✅</div>
+                <h2>Payment Successful!</h2>
+
+                <div class="receipt-box">
+                    <div class="receipt-row">
+                        <span>Merchant</span>
+                        <span id="receipt-merchant">TNB Electricity</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Date & Time</span>
+                        <span id="receipt-time">25 Oct, 10:30 AM</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Transaction ID</span>
+                        <span id="receipt-id" class="font-mono">#TXN-12345678</span>
+                    </div>
+                    <div class="receipt-row">
+                        <span>Payment Method</span>
+                        <span id="receipt-method">Wallet</span>
+                    </div>
+                    <div class="receipt-divider"></div>
+                    <div class="receipt-row total">
+                        <span>Total Paid</span>
+                        <span id="receipt-amount" class="text-xl font-bold">RM 120.00</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions" style="justify-content: center;">
+                    <button class="save-btn" onclick="closePaymentModal()" style="width: 100%;">Done</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- GOAL MODAL -->
+    <div id="goal-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeGoalModal()">&times;</span>
+            <h2>Add New Goal 🎯</h2>
+            <form id="goal-form" onsubmit="saveGoal(event)">
+                <div class="form-group">
+                    <label>Goal Name</label>
+                    <input type="text" id="goal-name" placeholder="e.g., New Car, Vacation" required>
+                </div>
+                <div class="form-group">
+                    <label>Target Amount (RM)</label>
+                    <input type="number" id="goal-target" placeholder="0.00" step="0.01" min="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label>Current Amount (RM)</label>
+                    <input type="number" id="goal-current" placeholder="0.00" step="0.01" min="0" required>
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="goal-category" required>
+                        <option value="" disabled selected>Select Category</option>
+                        <option value="Travel">Travel 🗾</option>
+                        <option value="Emergency Fund">Emergency Fund 💰</option>
+                        <option value="Education">Education 📚</option>
+                        <option value="Investment">Investment 📈</option>
+                        <option value="Shopping">Shopping 🛍️</option>
+                        <option value="Other">Other 📝</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Target Date</label>
+                    <input type="date" id="goal-date" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" onclick="closeGoalModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Add Goal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- BUDGET MANAGEMENT MODAL -->
+    <div id="budget-modal" class="modal">
+        <div class="modal-content budget-modal-content">
+            <span class="close-modal" onclick="closeBudgetModal()">&times;</span>
+            <h2>Budget Management 💰</h2>
+            <form id="budget-form" onsubmit="saveBudget(event)">
+                <!-- Monthly Income -->
+                <div class="form-group">
+                    <label>Monthly Income (RM)</label>
+                    <input type="number" id="monthly-income" placeholder="0.00" step="0.01" required>
+                    <small id="income-error" style="color: #cc241d; display: none;">Income cannot be negative</small>
+                </div>
+
+                <!-- Category Budgets -->
+                <div class="budget-categories-section">
+                    <h3 style="font-size: 16px; margin-bottom: 15px;">Category Budgets</h3>
+
+                    <div class="budget-category-item">
+                        <label>🍔 Food & Dining</label>
+                        <input type="number" class="budget-input" data-category="food" placeholder="0.00" step="0.01"
+                            min="0">
+                    </div>
+
+                    <div class="budget-category-item">
+                        <label>🚕 Transportation</label>
+                        <input type="number" class="budget-input" data-category="transport" placeholder="0.00"
+                            step="0.01" min="0">
+                    </div>
+
+                    <div class="budget-category-item">
+                        <label>🛍️ Shopping</label>
+                        <input type="number" class="budget-input" data-category="shopping" placeholder="0.00"
+                            step="0.01" min="0">
+                    </div>
+
+                    <div class="budget-category-item">
+                        <label>🎬 Entertainment</label>
+                        <input type="number" class="budget-input" data-category="entertainment" placeholder="0.00"
+                            step="0.01" min="0">
+                    </div>
+
+                    <div class="budget-category-item">
+                        <label>⚡ Utilities</label>
+                        <input type="number" class="budget-input" data-category="utilities" placeholder="0.00"
+                            step="0.01" min="0">
+                    </div>
+
+                    <div class="budget-category-item">
+                        <label>📝 Other</label>
+                        <input type="number" class="budget-input" data-category="other" placeholder="0.00" step="0.01"
+                            min="0">
+                    </div>
+                </div>
+
+                <!-- Budget Summary -->
+                <div class="budget-summary">
+                    <h3 style="font-size: 16px; margin-bottom: 10px;">Budget Summary</h3>
+                    <div class="summary-row">
+                        <span>Total Allocated:</span>
+                        <span id="total-allocated" class="summary-value">RM 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Remaining:</span>
+                        <span id="remaining-budget" class="summary-value">RM 0.00</span>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn" onclick="closeBudgetModal()">Cancel</button>
+                    <button type="submit" class="save-btn">Save Budget</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Check if user is logged in
+        let currentUserData = localStorage.getItem('currentUser');
+        let username = 'User';
+        let userEmail = 'user@example.com';
+
+        if (!currentUserData) {
+            window.location.href = 'login_register.html';
+        } else {
+            try {
+                // Try to parse the stored data
+                const userObj = JSON.parse(currentUserData);
+                if (typeof userObj === 'object' && userObj !== null) {
+                    username = userObj.username || 'User';
+                    userEmail = userObj.email || 'user@example.com';
+                } else {
+                    // Fallback for simple string storage
+                    username = currentUserData;
+                }
+            } catch (e) {
+                // If parse fails, assume it's a simple string
+                username = currentUserData;
+            }
+
+            // Update welcome message (assuming an element with id 'welcome-user' exists)
+            const welcomeUserElement = document.getElementById('welcome-user');
+            if (welcomeUserElement) {
+                welcomeUserElement.innerText = `Welcome, ${username}! 🎉`;
+            }
+
+            // Populate Profile Section
+            // We use querySelectorAll because there might be multiple elements or to be safe
+            // But we know we have specific classes
+            const profileNameElements = document.querySelectorAll('.profile-name');
+            if (profileNameElements) {
+                profileNameElements.forEach(el => el.innerText = username);
+            }
+
+            const profileEmailElements = document.querySelectorAll('.profile-email');
+            if (profileEmailElements) {
+                profileEmailElements.forEach(el => el.innerText = userEmail);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.href = 'login_register.html';
+        }
+
+        // Notification Toggle
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notification-dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Close dropdown when clicking outside
+        document.addEventListener('click', function (event) {
+            const dropdown = document.getElementById('notification-dropdown');
+            const btn = document.querySelector('.notification-btn');
+
+            if (dropdown.style.display === 'block' &&
+                !dropdown.contains(event.target) &&
+                !btn.contains(event.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+
+        // Sidebar Submenu Toggle
+        function toggleSubmenu(submenuId) {
+            const submenu = document.getElementById(submenuId);
+            submenu.classList.toggle('show');
+        }
+
+        // Section Navigation
+        function showSection(sectionName, element) {
+            // Hide all sections
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Show selected section
+            const targetSection = document.getElementById(sectionName + '-section');
+            if (targetSection) {
+                targetSection.classList.add('active');
+            }
+
+            // Update sidebar active state
+            document.querySelectorAll('.sidebar-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked element or find by href matching
+            if (element) {
+                element.classList.add('active');
+            } else {
+                // Fallback: find link with onclick containing the section name
+                const links = document.querySelectorAll('.sidebar-link');
+                links.forEach(link => {
+                    if (link.getAttribute('onclick').includes(sectionName)) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            // Sync data when switching to expenses section
+            if (sectionName === 'expenses') {
+                syncGoalsToExpenses();
+                syncExpensesToExpenses();
+            }
+        }
+
+        // Sync Goals from Home to Expenses
+        function syncGoalsToExpenses() {
+            const homeGoals = document.querySelector('#home-section .goals-list');
+            const expensesGoals = document.getElementById('goals-list-expenses');
+            if (homeGoals && expensesGoals) {
+                expensesGoals.innerHTML = homeGoals.innerHTML;
+            }
+        }
+
+        // Sync Expenses from Home to Expenses
+        function syncExpensesToExpenses() {
+            const homeExpenses = document.querySelector('#home-section .expenses-list');
+            const expensesExpenses = document.getElementById('expenses-list-expenses');
+            if (homeExpenses && expensesExpenses) {
+                expensesExpenses.innerHTML = homeExpenses.innerHTML;
+            }
+        }
+
+
+
+        // Initialize Theme and Setup
+        window.addEventListener('DOMContentLoaded', () => {
+
+
+            // Add Goal Button Functionality (for all sections)
+            document.querySelectorAll('.add-goal-btn').forEach(btn => {
+                btn.addEventListener('click', addGoal);
+            });
+
+            // Set today's date in report
+            const reportDate = document.getElementById('report-date');
+            if (reportDate) {
+                const today = new Date();
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                reportDate.textContent = today.toLocaleDateString('en-MY', options);
+            }
+        });
+
+        // Add Goal Function (syncs across sections)
+        function addGoal() {
+            const goalName = prompt('Enter goal name (e.g., "New Car 🚗"):');
+            if (!goalName || goalName.trim() === '') {
+                return;
+            }
+
+            const targetAmount = prompt('Enter target amount (RM):');
+            if (!targetAmount || isNaN(targetAmount) || parseFloat(targetAmount) <= 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            const currentAmount = prompt('Enter current saved amount (RM):');
+            if (currentAmount === null || isNaN(currentAmount) || parseFloat(currentAmount) < 0) {
+                alert('Please enter a valid amount.');
+                return;
+            }
+
+            const target = parseFloat(targetAmount);
+            const current = parseFloat(currentAmount);
+            const percentage = Math.min(Math.round((current / target) * 100), 100);
+
+            const goalHTML = `
+                <div class="goal-item">
+                    <div class="goal-header">
+                        <span class="goal-name">${goalName}</span>
+                        <span class="goal-amount">RM ${current.toFixed(2)} / RM ${target.toFixed(2)}</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${percentage}%;"></div>
+                    </div>
+                    <span class="goal-percentage">${percentage}%</span>
+                </div>
+            `;
+
+            // Add to all goals lists
+            document.querySelectorAll('.goals-list').forEach(list => {
+                const tempDiv = document.createElement('div');
+                tempDiv.innerHTML = goalHTML;
+                list.appendChild(tempDiv.firstElementChild);
+            });
+
+            alert('Goal added successfully!');
+        }
+
+        // Expense Modal Logic
+        function openExpenseModal() {
+            const modal = document.getElementById('expense-modal');
+            modal.style.display = 'block';
+
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('expense-date').value = today;
+        }
+
+        function closeExpenseModal() {
+            document.getElementById('expense-modal').style.display = 'none';
+        }
+
+        function saveExpense(event) {
+            event.preventDefault();
+
+            const amount = document.getElementById('expense-amount').value;
+            const category = document.getElementById('expense-category').value;
+            const date = document.getElementById('expense-date').value;
+            const desc = document.getElementById('expense-desc').value;
+            const receipt = document.getElementById('expense-receipt').value;
+
+            // Mock Save - In a real app, this would send data to a backend
+            console.log('Saving Expense:', { amount, category, date, desc, receipt });
+
+            alert(`Expense Saved!\nRM ${amount} for ${category}`);
+            closeExpenseModal();
+            document.getElementById('expense-form').reset();
+        }
+
+        // Toggle Payment History
+        function togglePaymentHistory() {
+            const hiddenItems = document.querySelectorAll('.hidden-history');
+            const btn = document.getElementById('toggle-history-btn');
+
+            hiddenItems.forEach(item => {
+                if (item.style.display === 'none') {
+                    item.style.display = 'flex';
+                    // Trigger reflow for animation if we add it later, 
+                    // for now just simple toggle or we can add class for CSS transition
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (btn.innerText === 'View History') {
+                btn.innerText = 'Show Less';
+            } else {
+                btn.innerText = 'View History';
+            }
+        }
+
+        // Toggle Upcoming Bills
+        function toggleUpcomingBills() {
+            const hiddenItems = document.querySelectorAll('.hidden-bills');
+            const btn = document.getElementById('toggle-bills-btn');
+
+            hiddenItems.forEach(item => {
+                if (item.style.display === 'none') {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (btn.innerText === 'View All') {
+                btn.innerText = 'Show Less';
+            } else {
+                btn.innerText = 'View All';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function (event) {
+            const modal = document.getElementById('expense-modal');
+            const paymentModal = document.getElementById('payment-modal');
+            if (event.target == modal) {
+                closeExpenseModal();
+            }
+            if (event.target == paymentModal) {
+                closePaymentModal();
+            }
+        }
+
+        /* --- Payment Flow Logic --- */
+        let currentPaymentData = {};
+
+        function openPaymentModal(data) {
+            currentPaymentData = data;
+
+            // Populate Step 1
+            document.getElementById('pay-icon').innerText = data.icon;
+            document.getElementById('pay-biller-name').innerText = data.name;
+            document.getElementById('pay-acc-num').innerText = data.acc;
+            document.getElementById('pay-acc-holder').innerText = data.holder;
+            document.getElementById('pay-due-date').innerText = data.due;
+            document.getElementById('pay-outstanding').innerText = 'RM ' + data.amount;
+            document.getElementById('payment-amount-input').value = data.amount;
+
+            // Reset Steps
+            document.querySelectorAll('.payment-step').forEach(step => step.style.display = 'none');
+            document.getElementById('payment-step-1').style.display = 'block';
+
+            document.getElementById('payment-modal').style.display = 'block';
+        }
+
+        function closePaymentModal() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        function proceedToConfirm() {
+            const payAmount = document.getElementById('payment-amount-input').value;
+            const payMethod = document.querySelector('input[name="pay-method"]:checked');
+
+            // Populate Step 2
+            document.getElementById('confirm-biller').innerText = currentPaymentData.name;
+            document.getElementById('confirm-amount').innerText = 'RM ' + parseFloat(payAmount).toFixed(2);
+            // Get text of selected radio's parent label span logic - simple mapping for now
+            const methodMap = { 'wallet': 'Wallet (RM 12.5k)', 'bank': 'Bank Transfer', 'card': 'Credit Card' };
+            document.getElementById('confirm-method').innerText = methodMap[payMethod.value];
+            document.getElementById('confirm-date').innerText = new Date().toLocaleDateString();
+
+            // Switch Steps
+            document.getElementById('payment-step-1').style.display = 'none';
+            document.getElementById('payment-step-2').style.display = 'block';
+        }
+
+        function backToStep1() {
+            document.getElementById('payment-step-2').style.display = 'none';
+            document.getElementById('payment-step-1').style.display = 'block';
+        }
+
+        function submitPayment() {
+            // Mock Processing
+            const payAmount = document.getElementById('payment-amount-input').value;
+            const payMethod = document.querySelector('input[name="pay-method"]:checked').value;
+            const methodMap = { 'wallet': 'E-Wallet', 'bank': 'Online Banking', 'card': 'Credit Card' };
+
+            // Populate Receipt
+            document.getElementById('receipt-merchant').innerText = currentPaymentData.name;
+            document.getElementById('receipt-time').innerText = new Date().toLocaleString();
+            document.getElementById('receipt-id').innerText = '#TXN-' + Math.floor(Math.random() * 100000000);
+            document.getElementById('receipt-method').innerText = methodMap[payMethod];
+            document.getElementById('receipt-amount').innerText = 'RM ' + parseFloat(payAmount).toFixed(2);
+
+            // Switch to Step 3
+            document.getElementById('payment-step-2').style.display = 'none';
+            document.getElementById('payment-step-3').style.display = 'block';
+        }
+
+        // Helper for UI selection
+        function selectPaymentMethod(element) {
+            // Remove selected class from all
+            document.querySelectorAll('.method-option').forEach(opt => opt.classList.remove('selected'));
+            // Add to clicked
+            element.classList.add('selected');
+            // Ensure radio is checked (handled by label usually, but enforcing just in case)
+            const radio = element.querySelector('input[type="radio"]');
+            if (radio) radio.checked = true;
+        }
+
+        /* --- Profile Logic --- */
+        function previewProfileImage(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('profile-img-display').src = e.target.result;
+                    // Also update sidebar if we had a user image there, but currently we don't.
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        /* --- Security Verification Logic --- */
+        function toggleSecuritySection() {
+            const section = document.getElementById('security-verification-section');
+            const arrow = document.getElementById('security-arrow');
+            const item = arrow ? arrow.closest('.setting-item') : null;
+
+            section.classList.toggle('show');
+            if (section.classList.contains('show')) {
+                if (item) item.classList.add('active');
+                initSecurityStatus();
+            } else {
+                if (item) item.classList.remove('active');
+            }
+        }
+
+        function toggleBankSection() {
+            const section = document.getElementById('bank-payment-section');
+            const arrow = document.getElementById('bank-arrow');
+            const item = arrow ? arrow.closest('.setting-item') : null;
+
+            section.classList.toggle('show');
+            if (section.classList.contains('show')) {
+                if (item) item.classList.add('active');
+            } else {
+                if (item) item.classList.remove('active');
+            }
+        }
+
+        function toggleNotificationsSection() {
+            const section = document.getElementById('notifications-section');
+            const arrow = document.getElementById('notifications-arrow');
+            const item = arrow ? arrow.closest('.setting-item') : null;
+
+            section.classList.toggle('show');
+            if (section.classList.contains('show')) {
+                if (item) item.classList.add('active');
+            } else {
+                if (item) item.classList.remove('active');
+            }
+        }
+
+        function toggleSupportSection(sectionId, arrowId) {
+            const section = document.getElementById(sectionId);
+            const arrow = document.getElementById(arrowId);
+            const item = arrow ? arrow.closest('.setting-item') : null;
+
+            section.classList.toggle('show');
+            if (section.classList.contains('show')) {
+                if (item) item.classList.add('active');
+            } else {
+                if (item) item.classList.remove('active');
+            }
+        }
+
+        /* --- Goal Modal Functions --- */
+        function openGoalModal() {
+            document.getElementById('goal-modal').style.display = 'block';
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('goal-date').value = today;
+        }
+
+        function closeGoalModal() {
+            document.getElementById('goal-modal').style.display = 'none';
+            document.getElementById('goal-form').reset();
+        }
+
+        function saveGoal(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('goal-name').value;
+            const target = parseFloat(document.getElementById('goal-target').value);
+            const current = parseFloat(document.getElementById('goal-current').value);
+            const category = document.getElementById('goal-category').value;
+            const date = document.getElementById('goal-date').value;
+
+            // Validate current amount doesn't exceed target
+            if (current > target) {
+                alert('Current amount cannot exceed target amount!');
+                return;
+            }
+
+            // Here you would typically save to localStorage or backend
+            console.log('Goal saved:', { name, target, current, category, date });
+
+            // Show success message
+            alert('Goal has been added successfully! 🎯');
+
+            closeGoalModal();
+        }
+
+        /* --- Budget Management Modal Functions --- */
+        function openBudgetModal() {
+            document.getElementById('budget-modal').style.display = 'block';
+
+            // Add event listeners for budget calculation
+            const incomeInput = document.getElementById('monthly-income');
+            const budgetInputs = document.querySelectorAll('.budget-input');
+
+            incomeInput.addEventListener('input', updateBudgetSummary);
+            budgetInputs.forEach(input => {
+                input.addEventListener('input', updateBudgetSummary);
+            });
+        }
+
+        function closeBudgetModal() {
+            document.getElementById('budget-modal').style.display = 'none';
+            document.getElementById('budget-form').reset();
+            document.getElementById('total-allocated').textContent = 'RM 0.00';
+            document.getElementById('remaining-budget').textContent = 'RM 0.00';
+            document.getElementById('income-error').style.display = 'none';
+        }
+
+        function updateBudgetSummary() {
+            const income = parseFloat(document.getElementById('monthly-income').value) || 0;
+            const budgetInputs = document.querySelectorAll('.budget-input');
+
+            let totalAllocated = 0;
+            budgetInputs.forEach(input => {
+                totalAllocated += parseFloat(input.value) || 0;
+            });
+
+            const remaining = income - totalAllocated;
+
+            document.getElementById('total-allocated').textContent = `RM ${totalAllocated.toFixed(2)}`;
+            document.getElementById('remaining-budget').textContent = `RM ${remaining.toFixed(2)}`;
+
+            // Color code remaining budget
+            const remainingEl = document.getElementById('remaining-budget');
+            if (remaining < 0) {
+                remainingEl.style.color = '#cc241d';
+            } else {
+                remainingEl.style.color = '#98971a';
+            }
+        }
+
+        function saveBudget(event) {
+            event.preventDefault();
+
+            const income = parseFloat(document.getElementById('monthly-income').value);
+
+            // Validate income is not negative
+            if (income < 0) {
+                document.getElementById('income-error').style.display = 'block';
+                return;
+            }
+
+            document.getElementById('income-error').style.display = 'none';
+
+            // Collect budget data
+            const budgetData = {
+                income: income,
+                categories: {}
+            };
+
+            document.querySelectorAll('.budget-input').forEach(input => {
+                const category = input.getAttribute('data-category');
+                const amount = parseFloat(input.value) || 0;
+                budgetData.categories[category] = amount;
+            });
+
+            // Here you would typically save to localStorage or backend
+            console.log('Budget saved:', budgetData);
+
+            // Show success message
+            alert('Budget has been saved successfully! 💰');
+
+            closeBudgetModal();
+        }
+
+
+        function initSecurityStatus() {
+            const isVerified = localStorage.getItem('isVerified') === 'true';
+            updateSecurityUI(isVerified);
+        }
+
+        function updateSecurityUI(isVerified) {
+            const statusDiv = document.getElementById('verification-status');
+            const statusIcon = statusDiv ? statusDiv.querySelector('.status-icon') : null;
+            const statusText = statusDiv ? statusDiv.querySelector('.status-text') : null;
+
+            const step1 = document.getElementById('verification-step-1');
+            const step2 = document.getElementById('verification-step-2');
+            const step3 = document.getElementById('verification-step-3');
+
+            if (isVerified) {
+                if (statusDiv) {
+                    statusDiv.className = 'verification-status verified';
+                    if (statusIcon) statusIcon.innerText = '✅';
+                    if (statusText) statusText.innerText = 'Account Verified';
+                }
+                if (step1) step1.style.display = 'none';
+                if (step2) step2.style.display = 'none';
+                if (step3) step3.style.display = 'none';
+            } else {
+                if (statusDiv) {
+                    statusDiv.className = 'verification-status unverified';
+                    if (statusIcon) statusIcon.innerText = '❌';
+                    if (statusText) statusText.innerText = 'Account Unverified';
+                }
+                // Only show Step 1 if nothing else is active (simple state)
+                if (step2 && step2.style.display === 'none' && step3 && step3.style.display === 'none') {
+                    if (step1) step1.style.display = 'block';
+                }
+            }
+        }
+
+        function startVerification() {
+            document.getElementById('verification-step-1').style.display = 'none';
+            document.getElementById('verification-step-2').style.display = 'block';
+        }
+
+        function cancelVerification() {
+            document.getElementById('verification-step-1').style.display = 'block';
+            document.getElementById('verification-step-2').style.display = 'none';
+            document.getElementById('verification-step-3').style.display = 'none';
+            document.getElementById('otp-input').value = '';
+        }
+
+        function sendOTP() {
+            alert('OTP sent to your email: 1234');
+            document.getElementById('verification-step-2').style.display = 'none';
+            document.getElementById('verification-step-3').style.display = 'block';
+        }
+
+        function verifyOTP() {
+            const input = document.getElementById('otp-input').value;
+            if (input === '1234') {
+                localStorage.setItem('isVerified', 'true');
+                alert('Account Verified Successfully! 🎉');
+                updateSecurityUI(true);
+            } else {
+                alert('Invalid OTP. Please try again.');
+            }
+        }
+
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>
