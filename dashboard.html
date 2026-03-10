@@ -653,11 +653,27 @@
                             <div class="settings-group">
                                 <h3>Financial Tools 📊</h3>
                                 <div class="settings-list">
-                                    <div class="setting-item"
-                                        onclick="showSection('reports', document.querySelector('a[href=\'#\'][onclick*=\'reports\']'))">
+                                    <div class="setting-item" onclick="toggleReportsSection()">
                                         <span class="setting-icon">📈</span>
                                         <span class="setting-label">Reports & Analytics</span>
-                                        <span class="setting-arrow">›</span>
+                                        <span class="setting-arrow" id="reports-arrow">›</span>
+                                    </div>
+                                    <!-- Reports & Analytics Dropdown Section -->
+                                    <div id="reports-dropdown-section" class="expandable-section">
+                                        <div class="reports-download-options">
+                                            <p style="margin-bottom: 10px; font-size: 13px; opacity: 0.8;">Download your
+                                                financial reports:</p>
+                                            <div style="display: flex; gap: 10px;">
+                                                <button class="quick-btn"
+                                                    style="flex: 1; padding: 10px; font-size: 14px;"
+                                                    onclick="downloadReport('PDF')">📄 PDF Report</button>
+                                                <button class="quick-btn"
+                                                    style="flex: 1; padding: 10px; font-size: 14px;"
+                                                    onclick="downloadReport('CSV')">📊 CSV Data</button>
+                                            </div>
+                                            <button class="view-more-btn" style="width: 100%; margin-top: 10px;"
+                                                onclick="showSection('reports')">View Full Analytics</button>
+                                        </div>
                                     </div>
                                     <div class="setting-item" onclick="openGoalModal()">
                                         <span class="setting-icon">🎯</span>
@@ -1147,6 +1163,32 @@
         </div>
     </div>
 
+
+    <!-- CHATBOT -->
+    <div class="chatbot-trigger" onclick="toggleChatbot()">💬</div>
+    <div class="chatbot-container" id="chatbot-container">
+        <div class="chatbot-header">
+            <h3>MoneyBuddy 🤖</h3>
+            <span class="chatbot-close" onclick="toggleChatbot()">✕</span>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="message bot-message">
+                Hello! I'm your MoneyBuddy. How can I help you today?
+                <div class="chatbot-options">
+                    <span class="chat-option" onclick="handleBotOption('Add Goal')">🎯 Add Goal</span>
+                    <span class="chat-option" onclick="handleBotOption('Predict Budget')">📈 Predict Budget</span>
+                    <span class="chat-option" onclick="handleBotOption('Pay Bill')">💳 Pay Bill</span>
+                    <span class="chat-option" onclick="handleBotOption('Help')">❓ Help</span>
+                </div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" class="chatbot-input" id="chatbot-input" placeholder="Type a message..."
+                onkeypress="handleChatKeyPress(event)">
+            <button class="chatbot-send" onclick="sendMessage()">➤</button>
+        </div>
+    </div>
+
     <script>
         // Check if user is logged in
         let currentUserData = localStorage.getItem('currentUser');
@@ -1558,6 +1600,26 @@
             }
         }
 
+        function toggleReportsSection() {
+            const section = document.getElementById('reports-dropdown-section');
+            const arrow = document.getElementById('reports-arrow');
+            const item = arrow ? arrow.closest('.setting-item') : null;
+
+            section.classList.toggle('show');
+            if (section.classList.contains('show')) {
+                if (item) item.classList.add('active');
+            } else {
+                if (item) item.classList.remove('active');
+            }
+        }
+
+        function downloadReport(format) {
+            alert(`Generating ${format} report...`);
+            setTimeout(() => {
+                alert(`${format} report downloaded successfully!`);
+            }, 1000);
+        }
+
         function toggleSupportSection(sectionId, arrowId) {
             const section = document.getElementById(sectionId);
             const arrow = document.getElementById(arrowId);
@@ -1752,6 +1814,160 @@
                 alert('Invalid OTP. Please try again.');
             }
         }
+
+        /* --- Chatbot Logic --- */
+        function toggleChatbot() {
+            const container = document.getElementById('chatbot-container');
+            container.classList.toggle('active');
+            if (container.classList.contains('active')) {
+                document.getElementById('chatbot-input').focus();
+            }
+        }
+
+        function handleChatKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatbot-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            addChatMessage('user', message);
+            input.value = '';
+
+            processUserMessage(message);
+        }
+
+        function addChatMessage(sender, text, options = []) {
+            const messagesContainer = document.getElementById('chatbot-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${sender}-message`;
+            messageDiv.innerHTML = text;
+
+            if (options.length > 0) {
+                const optionsDiv = document.createElement('div');
+                optionsDiv.className = 'chatbot-options';
+                options.forEach(opt => {
+                    const span = document.createElement('span');
+                    span.className = 'chat-option';
+                    span.innerText = opt.label;
+                    span.onclick = () => handleBotOption(opt.value || opt.label);
+                    optionsDiv.appendChild(span);
+                });
+                messageDiv.appendChild(optionsDiv);
+            }
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function handleBotOption(option) {
+            addChatMessage('user', option);
+            processUserMessage(option);
+        }
+
+        function processUserMessage(message) {
+            const msg = message.toLowerCase();
+
+            // Artificial delay
+            setTimeout(() => {
+                if (msg.includes('goal')) {
+                    startGoalFlow();
+                } else if (msg.includes('predict') || msg.includes('budget') || msg.includes('month')) {
+                    handlePredictBudget();
+                } else if (msg.includes('pay') || msg.includes('bill')) {
+                    handlePaymentFlow();
+                } else if (msg.includes('help') || msg.includes('hi') || msg.includes('hello')) {
+                    addChatMessage('bot', 'I can help you with:<br>• Adding a savings goal 🎯<br>• Predicting your 3-month budget 📈<br>• Making bill payments 💳', [
+                        { label: '🎯 Add Goal' },
+                        { label: '📈 Predict Budget' },
+                        { label: '💳 Pay Bill' }
+                    ]);
+                } else {
+                    addChatMessage('bot', "I'm not sure I understand. Try asking about goals, budgets, or payments!", [
+                        { label: '❓ Help' }
+                    ]);
+                }
+            }, 500);
+        }
+
+        function startGoalFlow() {
+            addChatMessage('bot', "Sure! I can help you add a new goal. What is the name of your goal? (e.g., 'New Laptop 💻')");
+            // Simplified multi-step interaction logic using prompt for this prototype
+            setTimeout(() => {
+                const name = prompt('Goal Name:');
+                if (!name) return;
+                const target = prompt('Target Amount (RM):');
+                if (!target || isNaN(target)) return;
+
+                // Add the goal using existing logic
+                addChatMessage('bot', `Great! I've added your goal: <strong>${name}</strong> with a target of <strong>RM ${parseFloat(target).toFixed(2)}</strong>.`);
+
+                // Inject into UI (mocking the addGoal function behavior)
+                const goalHTML = `
+                    <div class="goal-item">
+                        <div class="goal-header">
+                            <span class="goal-name">${name}</span>
+                            <span class="goal-amount">RM 0.00 / RM ${parseFloat(target).toFixed(2)}</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <span class="goal-percentage">0%</span>
+                    </div>
+                `;
+                document.querySelectorAll('.goals-list').forEach(list => {
+                    const tempDiv = document.createElement('div');
+                    tempDiv.innerHTML = goalHTML;
+                    list.appendChild(tempDiv.firstElementChild);
+                });
+            }, 500);
+        }
+
+        function handlePredictBudget() {
+            const spent = 3200; // Mock current monthly spent from UI
+            const predicted = spent * 3;
+            const savingsGoal = 5000; // Mock current savings
+
+            addChatMessage('bot', `Based on your recent spending of <strong>RM ${spent.toLocaleString()}</strong> per month:<br><br>• <strong>Predicted 3-month usage:</strong> RM ${(predicted).toLocaleString()}<br>• <strong>Remaining Balance:</strong> RM ${(12500 - predicted).toLocaleString()}<br><br>You're on track to hit your milestones! Keep it up! 🚀`);
+        }
+
+        function handlePaymentFlow() {
+            const bills = [
+                { name: 'TNB Electricity', icon: '⚡', amount: '120.00', due: '20 Oct 2026', acc: '2200119988', holder: 'Alex Tan' },
+                { name: 'Maxis Bill', icon: '📱', amount: '89.90', due: '25 Oct 2026', acc: '012-3456789', holder: 'Alex Tan' }
+            ];
+
+            addChatMessage('bot', "Which bill would you like to pay?",
+                bills.map(b => ({ label: `${b.icon} ${b.name}`, value: `Pay ${b.name}` }))
+            );
+        }
+
+        // Specific bill selection logic
+        const originalProcess = processUserMessage;
+        processUserMessage = function (message) {
+            const msg = message.toLowerCase();
+            if (msg.startsWith('pay ')) {
+                const billName = message.substring(4);
+                const bills = [
+                    { name: 'TNB Electricity', icon: '⚡', amount: '120.00', due: '20 Oct 2026', acc: '2200119988', holder: 'Alex Tan' },
+                    { name: 'Maxis Bill', icon: '📱', amount: '89.90', due: '25 Oct 2026', acc: '012-3456789', holder: 'Alex Tan' }
+                ];
+                const bill = bills.find(b => b.name.toLowerCase() === billName.toLowerCase());
+                if (bill) {
+                    addChatMessage('bot', `Opening payment for ${bill.name}...`);
+                    setTimeout(() => {
+                        openPaymentModal(bill);
+                        toggleChatbot(); // Close chat when modal opens
+                    }, 500);
+                    return;
+                }
+            }
+            originalProcess(message);
+        };
 
     </script>
     <script src="script.js"></script>
