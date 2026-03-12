@@ -1,5 +1,5 @@
 # MoneyMate
-MoneyMate is a next-gen financial assistant designed to take the stress out of budgeting. It uses smart AI to track your spending, optimize your savings, and help you hit your financial milestones faster.
+MoneyMate is a next-gen financial assistant designed to take the stress out of budgeting. It uses smart AI to track your spending, optimise your savings, and help you hit your financial milestones faster.
 
 MoneyMate;
 A financial literacy application designed to help users manage their personal finances effectively.
@@ -19,8 +19,10 @@ A financial literacy application designed to help users manage their personal fi
  * Run the application:
    (Example: npm start or python main.py)
 🤖 AI Disclosure
-This project utilizes AI tools (Gemini and Antigravity) to assist in:
- * Code optimization and debugging.
+This project utilises AI tools (Gemini and Antigravity) to assist in:
+ * Code optimisation and debugging.
  * Drafting documentation and FAQ content.
  * Brainstorming UI/UX features.
+
+   Video link = [[https://youtu.be/J-sgsBqTVzA]]
 
