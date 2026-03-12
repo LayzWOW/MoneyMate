@@ -9,7 +9,7 @@ A financial literacy application designed to help users manage their personal fi
  * Status: Active Development.
 ⚙️ Setup Instructions
  * Clone the repository:
-   git clone https://github.com/[<your_username>]/MoneyMate.git
+   git clone https://github.com/LayzWOW/MoneyMate.git
 
  * Navigate to the directory:
    cd MoneyMate
